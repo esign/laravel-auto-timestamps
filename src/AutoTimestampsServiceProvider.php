@@ -11,9 +11,7 @@ class AutoTimestampsServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->publishes([
-            __DIR__ . '/../config/auto-timestamps.php' => config_path('auto-timestamps.php')
-        ]);
+        $this->publishes([$this->configPath() => config_path('auto-timestamps.php')], 'config');
 
         Blueprint::macro(config('auto-timestamps.migration_helper_name'), function() {
             $this->timestamp('created_at')->useCurrent();
@@ -25,10 +23,17 @@ class AutoTimestampsServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->mergeConfigFrom($this->configPath(), 'auto-timestamps');
+
         foreach (config('auto-timestamps.connections') as $connectionName) {
             Connection::resolverFor($connectionName, function ($connection, $database, $prefix, $config) {
                 return new ExtendedMySqlConnection($connection, $database, $prefix, $config);
             });
         }
+    }
+
+    protected function configPath(): string
+    {
+        return __DIR__ . '/../config/auto-timestamps.php';
     }
 }
