@@ -20,11 +20,11 @@ php artisan vendor:publish --provider="Esign\AutoTimestamps\AutoTimestampsServic
 
 ### Specifying database connections
 
-To specify the database connections on which the migrations should be available, edit the connections array in the config file. The current DB_CONNECTION is used by default.
+To specify the database connections on which the migrations should be available, edit the connections array in the config file. The mysql connection is used by default.
 
 ```php
 'connections' => [
-    env('DB_CONNECTION', 'mysql'),
+    'mysql',
 ],
 ```
 
