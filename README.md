@@ -1,3 +1,11 @@
+**THIS PACKAGE IS NOT MAINTAINED ANYMORE**
+
+[`useCurrentOnUpdate`](https://github.com/laravel/framework/pull/35143) has been pr'd into the framework itself:
+```php
+$table->timestamp('created_at')->useCurrent();
+$table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+```
+
 # Laravel Auto Timestamps
 
 This package adds the ability to use auto-updating timestamps for MySQL databases.
